@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    font-family: Roboto, Helvetica, sans-serif;
+    letter-spacing: 0.25px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    * {
+        max-width: 800px;
+    }
+}
