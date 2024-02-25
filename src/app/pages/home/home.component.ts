@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   countries: string = "";
   countriesValue: string = "";
+  // Graph
+  pieChartsCountries: string = "";
 
   constructor(private olympicService: OlympicService) {}
 
@@ -24,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.olympics$ = this.olympicService.getOlympics();
     // Subscribe to get datas
     this.olympics$.subscribe((data) => {
-      console.log(data[0].participations);
+      console.log(data);
       // For title
       this.title = "Medals per Country";
       // For card 1
@@ -33,6 +35,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       // For card 2
       this.countries = "Number of Countries";
       this.countriesValue = data.length;
+      // For graph pie charts
+      this.pieChartsCountries = data;
     });
   }
   ngOnDestroy(): void {
