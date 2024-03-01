@@ -8,6 +8,5 @@ import { Component, Input, OnInit } from "@angular/core";
 export class GraphCardComponent implements OnInit {
   @Input() description!: string;
   @Input() value!: string;
-
   ngOnInit() {}
 }

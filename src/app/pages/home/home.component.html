@@ -4,7 +4,6 @@
 
 <main>
     <div class="bloc">
-
         <div class="cards-list">
             <app-graph-title [title]="title"></app-graph-title>
             <app-graph-card [description]="participationsDescription" [value]="participationsValue"></app-graph-card>
@@ -14,7 +13,7 @@
         <div *ngFor="let object of olympics$ | async" class="graph">
             <p>{{object.country}}</p>
         </div>
-        <app-graph-pie-charts ></app-graph-pie-charts>
+        <app-graph-pie-charts [datas]="datasGraphPie"></app-graph-pie-charts>
     </div>
 
 </main>

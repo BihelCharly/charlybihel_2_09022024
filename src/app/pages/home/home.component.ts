@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
-import { filter, map } from "rxjs/operators";
+import { Olympic } from "src/app/core/models/Olympic";
+import { Country } from "src/app/core/models/Country";
 
 @Component({
   selector: "app-home",
@@ -10,32 +11,49 @@ import { filter, map } from "rxjs/operators";
 })
 export class HomeComponent implements OnInit, OnDestroy {
   public olympics$: Observable<any> = of(null);
+  source!: Olympic[];
   // graph-title
   title: string = "";
   // graph-card
-  // 1
   participationsDescription: string = "";
   participationsValue: string = "";
-  // 2
   countryDescription: string = "";
   countryValue: string = "";
+  datasGraphPie!: Country[];
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     // Subscribe to get datas
-    this.olympics$.subscribe((data) => {
-      // For title
-      this.title = "Medals per Country";
-      // For card 1
-      this.participationsDescription = "Number of JOs";
-      this.participationsValue = data[0].participations.length;
-      // For card 2
-      this.countryDescription = "Number of Countries";
-      this.countryValue = data.length;
+    this.olympics$.subscribe({
+      next: (data) => {
+        this.source = data;
+        // For title
+        this.title = "Medals per Country";
+        // For card 1
+        this.participationsDescription = "Number of JOs";
+        this.participationsValue = data[0].participations.length;
+        // For card 2
+        this.countryDescription = "Number of Countries";
+        this.countryValue = data.length;
+        // CREATE NEW ARRAY FOR GRAPH PIE
+        const createNewArray = this.source.map(
+          ({ id, country, participations }) =>
+            Object.create({
+              id: id,
+              name: country,
+              value: participations
+                .map((item) => item.medalsCount)
+                .reduce((prev, curr) => prev + curr, 0),
+            })
+        );
+        this.datasGraphPie = createNewArray;
+      },
+      error: () => {},
     });
   }
+
   ngOnDestroy(): void {
     this.olympics$;
   }
