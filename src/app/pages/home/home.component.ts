@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   participationsValue: string = "";
   countryDescription: string = "";
   countryValue: string = "";
+  // graph-pie-charts
   datasGraphPie!: Country[];
 
   constructor(private olympicService: OlympicService) {}

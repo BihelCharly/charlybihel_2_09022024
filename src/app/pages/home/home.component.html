@@ -1,19 +1,12 @@
 <nav>Olympic games app</nav>
 
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<!-- <p>{{ (olympics$ | async)?.length }} data loaded</p> -->
 
 <main>
-    <div class="bloc">
-        <div class="cards-list">
-            <app-graph-title [title]="title"></app-graph-title>
-            <app-graph-card [description]="participationsDescription" [value]="participationsValue"></app-graph-card>
-            <app-graph-card [description]="countryDescription" [value]="countryValue"></app-graph-card>
-        </div>
-        <!-- Country list for graph -->
-        <div *ngFor="let object of olympics$ | async" class="graph">
-            <p>{{object.country}}</p>
-        </div>
-        <app-graph-pie-charts [datas]="datasGraphPie"></app-graph-pie-charts>
+    <div class="cards-list">
+        <app-graph-title [title]="title"></app-graph-title>
+        <app-graph-card [description]="participationsDescription" [value]="participationsValue"></app-graph-card>
+        <app-graph-card [description]="countryDescription" [value]="countryValue"></app-graph-card>
     </div>
-
+        <app-graph-pie-charts [datas]="datasGraphPie"></app-graph-pie-charts>
 </main>

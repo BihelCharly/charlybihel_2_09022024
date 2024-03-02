@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Country } from "src/app/core/models/Country";
 
 @Component({
@@ -8,11 +8,11 @@ import { Country } from "src/app/core/models/Country";
 })
 export class GraphPieChartsComponent {
   @Input() datas!: Country[];
+
   // Graph options
-  gradient: boolean = false;
   showLegend: boolean = false;
-  isDoughnut: boolean = false;
   showLabels: boolean = true;
+  animations: boolean = false;
   customColors = [
     {
       name: "Germany",
@@ -40,5 +40,7 @@ export class GraphPieChartsComponent {
     },
   ];
 
-  constructor() {}
+  onGraphClick() {
+    console.log("click");
+  }
 }

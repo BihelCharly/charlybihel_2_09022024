@@ -3,15 +3,37 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+
     flex-wrap: wrap;
+    align-self: center;
+
     > :nth-child(1) {
         width: 100%;
         display: flex;
         justify-content: center;
     }
-    > :nth-child(2), :nth-child(3) {
-       width: 45%;
-    }
 
+    > :nth-child(2),
+    :nth-child(3) {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+.cards-list {
+        flex-direction: column;
+        > :nth-child(2),
+        :nth-child(3) {
+            width: 80%;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .cards-list {
+            width: 50%;
+                max-width: 500px;
+
+    }
 }
