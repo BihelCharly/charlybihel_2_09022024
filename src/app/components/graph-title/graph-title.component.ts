@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from "@angular/core";
   styleUrl: "./graph-title.component.scss",
 })
 export class GraphTitleComponent implements OnInit {
-  @Input() title!: string;
+  @Input() graphTitle!: string;
 
   ngOnInit() {}
 }

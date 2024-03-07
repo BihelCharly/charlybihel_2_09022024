@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from "@angular/core";
   styleUrl: "./graph-card.component.scss",
 })
 export class GraphCardComponent implements OnInit {
-  @Input() description!: string;
-  @Input() value!: string;
+  @Input() cardTxt!: string;
+  @Input() cardValue!: number;
   ngOnInit() {}
 }

@@ -1,4 +1,4 @@
-.title {
+.graph-title {
     background-color: #04838F;
     color: white;
     border-radius: 10px;
@@ -6,11 +6,18 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 0px 25px ;
+    padding: 0px 25px;
     font-size: 22px;
     margin: 20px 0;
+
     p {
         margin: 10px 0;
         text-align: center;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .graph-title {
+        min-width: 70%;
     }
 }
