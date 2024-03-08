@@ -1,12 +1,10 @@
-<nav>Olympic games app</nav>
-
 <!-- <p>{{ (olympics$ | async)?.length }} data loaded</p> -->
 
 <main>
-    <div class="cards-list">
-        <app-graph-title [title]="title"></app-graph-title>
-        <app-graph-card [description]="participationsDescription" [value]="participationsValue"></app-graph-card>
-        <app-graph-card [description]="countryDescription" [value]="countryValue"></app-graph-card>
+    <div class="cards-block">
+        <app-graph-title [graphTitle]="graphTitle"></app-graph-title>
+        <app-graph-card [cardTxt]="participationsTxt" [cardValue]="participationsValue"></app-graph-card>
+        <app-graph-card [cardTxt]="countryTxt" [cardValue]="countryValue"></app-graph-card>
     </div>
         <app-graph-pie-charts [datas]="datasGraphPie"></app-graph-pie-charts>
 </main>

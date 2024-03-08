@@ -1,0 +1,11 @@
+<main>
+    <div class="cards-block">
+        <app-graph-title [graphTitle]="graphTitle"></app-graph-title>
+        <div class="cards-list">
+            <app-graph-card [cardTxt]="nbOfEntriesTxt" [cardValue]="nbOfEntriesValue"></app-graph-card>
+            <app-graph-card [cardTxt]="nbOfMedalsTxt" [cardValue]="nbOfMedalsValue"></app-graph-card>
+            <app-graph-card [cardTxt]="nbOfAthletesTxt" [cardValue]="nbOfAthletesValue"></app-graph-card>
+        </div>
+    </div>
+        <app-graph-line-chart></app-graph-line-chart>
+</main>

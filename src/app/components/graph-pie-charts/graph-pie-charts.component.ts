@@ -1,12 +1,13 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Country } from "src/app/core/models/Country";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-graph-pie-charts",
   templateUrl: "./graph-pie-charts.component.html",
   styleUrl: "./graph-pie-charts.component.scss",
 })
-export class GraphPieChartsComponent {
+export class GraphPieChartsComponent implements OnInit {
   @Input() datas!: Country[];
 
   // Graph options
@@ -40,7 +41,11 @@ export class GraphPieChartsComponent {
     },
   ];
 
-  onGraphClick() {
-    console.log("click");
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
+  onClickGraphPie() {
+    this.router.navigateByUrl("/details");
   }
 }

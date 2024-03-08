@@ -10,16 +10,16 @@ import { Country } from "src/app/core/models/Country";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public olympics$: Observable<any> = of(null);
-  source!: Olympic[];
+  public olympics$: Observable<Olympic[]> = of([]);
   // graph-title
-  title: string = "";
+  graphTitle: string = "Medals per Country";
   // graph-card
-  participationsDescription: string = "";
-  participationsValue: string = "";
-  countryDescription: string = "";
-  countryValue: string = "";
+  participationsTxt: string = "Number of JOs";
+  participationsValue!: number;
+  countryTxt: string = "Number of Countries";
+  countryValue!: number;
   // graph-pie-charts
+  array!: Olympic[];
   datasGraphPie!: Country[];
 
   constructor(private olympicService: OlympicService) {}
@@ -28,30 +28,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.olympics$ = this.olympicService.getOlympics();
     // Subscribe to get datas
     this.olympics$.subscribe({
-      next: (data) => {
-        this.source = data;
-        // For title
-        this.title = "Medals per Country";
+      next: (datas) => {
+        this.array = datas;
+        console.log(this.array);
+        console.log(Object.keys(this.array[0].participations).length);
         // For card 1
-        this.participationsDescription = "Number of JOs";
-        this.participationsValue = data[0].participations.length;
+        this.participationsValue = Object.keys(
+          this.array[0].participations
+        ).length;
         // For card 2
-        this.countryDescription = "Number of Countries";
-        this.countryValue = data.length;
+        this.countryValue = this.array.length;
         // CREATE NEW ARRAY FOR GRAPH PIE
-        const createNewArray = this.source.map(
-          ({ id, country, participations }) =>
-            Object.create({
-              id: id,
-              name: country,
-              value: participations
-                .map((item) => item.medalsCount)
-                .reduce((prev, curr) => prev + curr, 0),
-            })
+        this.datasGraphPie = this.array.map(({ id, country, participations }) =>
+          Object.create({
+            id: id,
+            name: country,
+            value: participations
+              .map((item) => item.medalsCount)
+              .reduce((prev, curr) => prev + curr, 0),
+          })
         );
-        this.datasGraphPie = createNewArray;
       },
-      error: () => {},
+      error: () => {
+        console.error();
+      },
     });
   }
 

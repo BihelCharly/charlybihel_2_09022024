@@ -1,12 +1,11 @@
-.cards-list {
+.cards-block {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
     flex-wrap: wrap;
     align-self: center;
-
+    padding-bottom: 50px;
     > :nth-child(1) {
         width: 100%;
         display: flex;
@@ -20,8 +19,9 @@
 }
 
 @media screen and (max-width: 800px) {
-.cards-list {
+    .cards-block {
         flex-direction: column;
+        max-width: 80%;
         > :nth-child(2),
         :nth-child(3) {
             width: 80%;
@@ -30,10 +30,4 @@
     }
 }
 
-@media screen and (min-width: 800px) {
-    .cards-list {
-            width: 50%;
-                max-width: 500px;
-
-    }
-}
+@media screen and (min-width: 800px) {}

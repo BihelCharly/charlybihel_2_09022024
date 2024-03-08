@@ -7,12 +7,18 @@
 body {
     height: 100%;
     margin: 0px;
-
+    max-width: 100%;
+    width: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 main {
     display: flex;
     justify-content: center;
-    max-width: 100%;
     flex-direction: column;
+    max-width: 100%;
+    width: 100%;
 }
