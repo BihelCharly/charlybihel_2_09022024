@@ -6,6 +6,7 @@
     flex-wrap: wrap;
     align-self: center;
     padding-bottom: 50px;
+
     > :nth-child(1) {
         width: 100%;
         display: flex;
@@ -18,10 +19,23 @@
     }
 }
 
+
+::ng-deep ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
+    color: white !important;
+    padding: 0px 25px;
+    background-color: #2F808E !important;
+    font-size: 0.75rem !important;
+
+    .tooltip-caret.position-top {
+        border-top-color: #2F808E !important;
+    }
+}
+
 @media screen and (max-width: 800px) {
     .cards-block {
         flex-direction: column;
         max-width: 80%;
+
         > :nth-child(2),
         :nth-child(3) {
             width: 80%;

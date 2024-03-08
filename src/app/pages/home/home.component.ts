@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
+import { Router } from "@angular/router";
+// Models
 import { Olympic } from "src/app/core/models/Olympic";
 import { Country } from "src/app/core/models/Country";
 
@@ -10,19 +12,54 @@ import { Country } from "src/app/core/models/Country";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  // observeable
   public olympics$: Observable<Olympic[]> = of([]);
+
   // graph-title
   graphTitle: string = "Medals per Country";
   // graph-card
+  // 1
   participationsTxt: string = "Number of JOs";
   participationsValue!: number;
+  // 2
   countryTxt: string = "Number of Countries";
   countryValue!: number;
-  // graph-pie-charts
+
+  // graph : datas
   array!: Olympic[];
   datasGraphPie!: Country[];
+  // graph : options
+  showLegend: boolean = false;
+  showLabels: boolean = true;
+  animations: boolean = false;
+  customColors = [
+    {
+      name: "Germany",
+      value: "#744051",
+    },
+    {
+      name: "United States",
+      value: "#8C9FD8",
+    },
+    {
+      name: "France",
+      value: "#94809F",
+    },
+    {
+      name: "United Kingdom",
+      value: "#C4DEF0",
+    },
+    {
+      name: "Spain",
+      value: "#BACAE5",
+    },
+    {
+      name: "Italy",
+      value: "#906365",
+    },
+  ];
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
@@ -30,22 +67,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.olympics$.subscribe({
       next: (datas) => {
         this.array = datas;
-        console.log(this.array);
-        console.log(Object.keys(this.array[0].participations).length);
-        // For card 1
+        // POURQUOI ERREUR ICI ? console.log(Object.keys(this.array[0].participations).length);
+        // card 1
         this.participationsValue = Object.keys(
           this.array[0].participations
         ).length;
-        // For card 2
+        // card 2
         this.countryValue = this.array.length;
-        // CREATE NEW ARRAY FOR GRAPH PIE
-        this.datasGraphPie = this.array.map(({ id, country, participations }) =>
+        // Data sent to GraphPie
+        this.datasGraphPie = this.array.map(({ country, participations, id }) =>
           Object.create({
-            id: id,
             name: country,
             value: participations
-              .map((item) => item.medalsCount)
+              .map((el) => el.medalsCount)
               .reduce((prev, curr) => prev + curr, 0),
+            extra: id,
           })
         );
       },
@@ -57,5 +93,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.olympics$;
+  }
+
+  // METHODS
+  onPieClick(event: MouseEvent) {
+    this.router.navigate(["/details"], {
+      queryParams: { id: event },
+    });
   }
 }
