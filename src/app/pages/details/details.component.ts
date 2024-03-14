@@ -3,6 +3,7 @@ import { Observable, of } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
 
 import { Olympic } from "src/app/core/models/Olympic";
+import { Participation } from "src/app/core/models/Participation";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -25,10 +26,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
   // 3
   nbOfAthletesTxt = "Total number of athletes";
   nbOfAthletesValue!: number;
-  // graph-pie-charts
+
+  // graph : datas
+  array!: any[];
+  datasTest!: any[];
+  //datasGraphLine!: Participations[];
+  // graph : options
 
   // graph array
-  single = [
+  datasGraphLine = [
     {
       name: "France",
       series: [
@@ -48,12 +54,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
     },
   ];
 
-  datasGraphLine!: any[];
-
   // options
   legend: boolean = false;
   showLabels: boolean = true;
-  animations: boolean = false;
+  animations: boolean = true;
   xAxis: boolean = true;
   yAxis: boolean = true;
   showXAxisLabel: boolean = true;
@@ -94,20 +98,29 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Get and subscribe Url
+    // Get and subscribe to Url
     this.route.queryParams.subscribe((params) => {
       this.idUrl = params["id"];
-      console.log(this.idUrl); // price
     });
-
     this.olympics$ = this.olympicService.getOlympics();
     // Subscribe to get datas
     this.olympics$.subscribe({
       next: (datas) => {
-        console.log(datas);
+        const object = datas.filter((el) => el.id === +this.idUrl);
+        console.log(object);
+        this.datasTest = object.map(({ participations }) =>
+          Object.create({
+            value: participations
+              .map((el: any) => el.medalsCount)
+              .reduce((prev: number, curr: number) => prev + curr, 0),
+          })
+        );
+      },
+      error: () => {
+        console.error();
       },
     });
-
+    console.log(this.datasTest);
     // Cards
     this.nbOfEntriesValue = 3;
     this.nbOfMedalsValue = 5;

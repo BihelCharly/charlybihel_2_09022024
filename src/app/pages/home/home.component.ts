@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.olympics$ = this.olympicService.getOlympics();
     // Subscribe to get datas
     this.olympics$.subscribe({
-      next: (datas) => {
+      next: (datas: Olympic[]) => {
         this.array = datas;
         // POURQUOI ERREUR ICI ? console.log(Object.keys(this.array[0].participations).length);
         // card 1
@@ -80,13 +80,13 @@ export class HomeComponent implements OnInit, OnDestroy {
             name: country,
             value: participations
               .map((el) => el.medalsCount)
-              .reduce((prev, curr) => prev + curr, 0),
+              .reduce((prev: number, curr: number) => prev + curr, 0),
             extra: id,
           })
         );
       },
-      error: () => {
-        console.error();
+      error: (error: string) => {
+        console.error(error);
       },
     });
   }
