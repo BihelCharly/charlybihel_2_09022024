@@ -4,7 +4,7 @@ import { OlympicService } from "src/app/core/services/olympic.service";
 import { Router } from "@angular/router";
 // Models
 import { Olympic } from "src/app/core/models/Olympic";
-import { Country } from "src/app/core/models/Country";
+import { GraphPie } from "src/app/core/models/GraphPie";
 
 @Component({
   selector: "app-home",
@@ -17,17 +17,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // graph-title
   graphTitle: string = "Medals per Country";
+
   // graph-card
   // 1
-  participationsTxt: string = "Number of JOs";
-  participationsValue!: number;
+  nbOfJoTxt: string = "Number of JOs";
+  nbOfJoValue!: number;
   // 2
-  countryTxt: string = "Number of Countries";
-  countryValue!: number;
+  nbOfCountryTxt: string = "Number of Countries";
+  nbOfCountryValue!: number;
 
   // graph : datas
-  array!: Olympic[];
-  datasGraphPie!: Country[];
+  datasGraphPie!: GraphPie[];
+
   // graph : options
   showLegend: boolean = false;
   showLabels: boolean = true;
@@ -66,16 +67,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Subscribe to get datas
     this.olympics$.subscribe({
       next: (datas: Olympic[]) => {
-        this.array = datas;
-        // POURQUOI ERREUR ICI ? console.log(Object.keys(this.array[0].participations).length);
         // card 1
-        this.participationsValue = Object.keys(
-          this.array[0].participations
-        ).length;
+        this.nbOfJoValue = Object.keys(datas[0].participations).length;
         // card 2
-        this.countryValue = this.array.length;
+        this.nbOfCountryValue = datas.length;
         // Data sent to GraphPie
-        this.datasGraphPie = this.array.map(({ country, participations, id }) =>
+        this.datasGraphPie = datas.map(({ country, participations, id }) =>
           Object.create({
             name: country,
             value: participations

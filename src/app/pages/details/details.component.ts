@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
-
-import { Olympic } from "src/app/core/models/Olympic";
-import { Participation } from "src/app/core/models/Participation";
 import { ActivatedRoute } from "@angular/router";
+// Models
+import { Olympic } from "src/app/core/models/Olympic";
+import { GraphLine } from "src/app/core/models/GraphLine";
+import { Participation } from "src/app/core/models/Participation";
 
 @Component({
   selector: "app-details",
@@ -12,49 +13,29 @@ import { ActivatedRoute } from "@angular/router";
   styleUrl: "./details.component.scss",
 })
 export class DetailsComponent implements OnInit, OnDestroy {
+  // observeable
   public olympics$: Observable<Olympic[]> = of([]);
+  // url
   idUrl!: string;
+
   // graph-title
-  graphTitle: string = "Name of the country";
+  graphTitle!: string;
+
   // graph-card
   // 1
-  nbOfEntriesTxt = "Number of entries";
+  nbOfEntriesTxt: string = "Number of entries";
   nbOfEntriesValue!: number;
   // 2
-  nbOfMedalsTxt = "Total Number medals";
+  nbOfMedalsTxt: string = "Total Number medals";
   nbOfMedalsValue!: number;
   // 3
-  nbOfAthletesTxt = "Total number of athletes";
+  nbOfAthletesTxt: string = "Total number of athletes";
   nbOfAthletesValue!: number;
 
   // graph : datas
-  array!: any[];
-  datasTest!: any[];
-  //datasGraphLine!: Participations[];
+  array!: Olympic[];
+  datasGraphLine!: GraphLine[];
   // graph : options
-
-  // graph array
-  datasGraphLine = [
-    {
-      name: "France",
-      series: [
-        {
-          name: "1990",
-          value: 62000000,
-        },
-        {
-          name: "2010",
-          value: 73000000,
-        },
-        {
-          name: "2011",
-          value: 89400000,
-        },
-      ],
-    },
-  ];
-
-  // options
   legend: boolean = false;
   showLabels: boolean = true;
   animations: boolean = true;
@@ -98,34 +79,44 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.olympics$ = this.olympicService.getOlympics();
     // Get and subscribe to Url
     this.route.queryParams.subscribe((params) => {
       this.idUrl = params["id"];
     });
-    this.olympics$ = this.olympicService.getOlympics();
     // Subscribe to get datas
     this.olympics$.subscribe({
-      next: (datas) => {
-        const object = datas.filter((el) => el.id === +this.idUrl);
-        console.log(object);
-        this.datasTest = object.map(({ participations }) =>
+      next: (datas: Olympic[]) => {
+        this.array = datas.filter((el: Olympic) => el.id === +this.idUrl);
+        this.graphTitle = this.array[0].country;
+        this.nbOfEntriesValue = this.array[0].participations.length;
+        this.nbOfMedalsValue = this.array[0].participations.reduce(
+          (prev: number, curr: any) => prev + curr.medalsCount,
+          0
+        );
+        this.nbOfAthletesValue = this.array[0].participations.reduce(
+          (prev: number, curr) => prev + curr.athleteCount,
+          0
+        );
+        this.datasGraphLine = this.array.map(({ country, participations }) =>
           Object.create({
-            value: participations
-              .map((el: any) => el.medalsCount)
-              .reduce((prev: number, curr: number) => prev + curr, 0),
+            name: country,
+            series: participations.map((el: Participation) => {
+              return {
+                name: el.year,
+                value: el.medalsCount,
+              };
+            }),
           })
         );
       },
-      error: () => {
-        console.error();
+      error: (error: string) => {
+        console.error(error);
       },
     });
-    console.log(this.datasTest);
-    // Cards
-    this.nbOfEntriesValue = 3;
-    this.nbOfMedalsValue = 5;
-    this.nbOfAthletesValue = 32;
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.olympics$;
+  }
 }
