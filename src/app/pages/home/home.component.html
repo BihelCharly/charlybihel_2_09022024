@@ -3,10 +3,10 @@
 <main>
     <div class="cards-block">
         <app-graph-title [graphTitle]="graphTitle"></app-graph-title>
-        <app-graph-card [cardTxt]="participationsTxt" [cardValue]="participationsValue"></app-graph-card>
-        <app-graph-card [cardTxt]="countryTxt" [cardValue]="countryValue"></app-graph-card>
+        <app-graph-card [cardTxt]="nbOfJoTxt" [cardValue]="nbOfJoValue"></app-graph-card>
+        <app-graph-card [cardTxt]="nbOfCountryTxt" [cardValue]="nbOfCountryValue"></app-graph-card>
     </div>
     <ngx-charts-pie-chart [customColors]="customColors" [results]="datasGraphPie" [legend]="showLegend"
-        [labels]="showLabels" [animations]="animations" (select)="onPieClick($event.extra)">
+        [labels]="showLabels" [animations]="animations" (select)="onPieClick($event.extra) ">
     </ngx-charts-pie-chart>
 </main>

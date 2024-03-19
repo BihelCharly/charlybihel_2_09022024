@@ -1,8 +1,16 @@
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
+![RxJS](https://img.shields.io/badge/rxjs-%23B7178C.svg?style=for-the-badge&logo=reactivex&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+[![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mathieu-Hallez/Developpez-le-front-end-en-utilisant-Angular)
+
+
 # OlympicGamesStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2, [Node](https://nodejs.org/en/) version 20.10.0, [npm](https://www.npmjs.com/package/npm) 10.5.0. and forked from *[Developpez-le-front-end-en-utilisant-Angular](https://github.com/OpenClassrooms-Student-Center/Developpez-le-front-end-en-utilisant-Angular)*.
 
-Don't forget to install your node_modules before starting (`npm install`).
+Don't forget to install [NodeJS](https://nodejs.org/fr) and your node_modules before starting with (`npm install`).
 
 ## Development server
 
@@ -12,18 +20,27 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Where to start
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+## How the code is constructed
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+As of the architecture already defined at project startup, the current release includes the following:
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
+- `components` folder : contains every reusable components
+- `core` folder : contains business logic :
+  - `models` folders : set reusable typescript interfaces for both initial dataset from datatable and rendering models
+  - `services`folder : reusable service for business logic. <br>
+  Here is currently available OlympicService, I updated the service as recommanded from Angular 17 best practices.
+- `pages` folder : contains components for routing
+  - `home` homepage as standard base path.
+  - `details` detailed view per country as graph : summarized number of participation's and total of medals won as well as the total of athletes.
+  - `not-found` page can only be available if the data can not be gathered by the service from the dataset.
 
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
 
-You're now ready to implement the requested features.
+### Best Practise :
+* Update angular requirement to latest angular 17 version
+* [Angular Docs](https://angular.io/docs) recommanded
 
-Good luck!
+## Visual library :
+* [ngx-charts](https://swimlane.gitbook.io/ngx-charts/) used as visual charts for this application. <br>
+
+Good luck !

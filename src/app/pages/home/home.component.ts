@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable, of, skip, take } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
 import { Router } from "@angular/router";
 // Models
 import { Olympic } from "src/app/core/models/Olympic";
-import { Country } from "src/app/core/models/Country";
+import { GraphPie } from "src/app/core/models/GraphPie";
 
 @Component({
   selector: "app-home",
@@ -13,25 +13,27 @@ import { Country } from "src/app/core/models/Country";
 })
 export class HomeComponent implements OnInit, OnDestroy {
   // observeable
-  public olympics$: Observable<Olympic[]> = of([]);
-
+  //olympic$: Observable<Olympic[] > = this.olympicService.olympic;
+  olympics$: Observable<Olympic[]> = this.olympicService.olympic;
+  // public olympics$: Observable<Olympic[]> = of([]);
   // graph-title
   graphTitle: string = "Medals per Country";
+
   // graph-card
   // 1
-  participationsTxt: string = "Number of JOs";
-  participationsValue!: number;
+  nbOfJoTxt: string = "Number of JOs";
+  nbOfJoValue!: number;
   // 2
-  countryTxt: string = "Number of Countries";
-  countryValue!: number;
+  nbOfCountryTxt: string = "Number of Countries";
+  nbOfCountryValue!: number;
 
   // graph : datas
-  array!: Olympic[];
-  datasGraphPie!: Country[];
+  datasGraphPie!: GraphPie[];
+
   // graph : options
+  animations: boolean = true;
   showLegend: boolean = false;
   showLabels: boolean = true;
-  animations: boolean = false;
   customColors = [
     {
       name: "Germany",
@@ -62,31 +64,28 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private olympicService: OlympicService, private router: Router) {}
 
   ngOnInit(): void {
-    this.olympics$ = this.olympicService.getOlympics();
     // Subscribe to get datas
     this.olympics$.subscribe({
       next: (datas: Olympic[]) => {
-        this.array = datas;
-        // POURQUOI ERREUR ICI ? console.log(Object.keys(this.array[0].participations).length);
-        // card 1
-        this.participationsValue = Object.keys(
-          this.array[0].participations
-        ).length;
-        // card 2
-        this.countryValue = this.array.length;
-        // Data sent to GraphPie
-        this.datasGraphPie = this.array.map(({ country, participations, id }) =>
-          Object.create({
-            name: country,
-            value: participations
-              .map((el) => el.medalsCount)
-              .reduce((prev: number, curr: number) => prev + curr, 0),
-            extra: id,
-          })
-        );
+        if (datas && datas.length > 0 && datas[0].participations) {
+          // card 1
+          this.nbOfJoValue = Math.max(...(datas.map(el => el.participations.length)));
+          // card 2
+          this.nbOfCountryValue = datas.length;
+          // Data sent to GraphPie
+          this.datasGraphPie = datas.map(({ country, participations, id }) =>
+            Object.create({
+              name: country,
+              value: participations
+                .map((el) => el.medalsCount)
+                .reduce((prev: number, curr: number) => prev + curr, 0),
+              extra: id,
+            })
+          );
+        }
       },
       error: (error: string) => {
-        console.error(error);
+        console.error("An error occurred :", error);
       },
     });
   }
