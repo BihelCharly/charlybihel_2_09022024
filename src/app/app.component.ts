@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { take } from "rxjs";
 import { OlympicService } from "./core/services/olympic.service";
 
 @Component({
@@ -8,9 +7,13 @@ import { OlympicService } from "./core/services/olympic.service";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
+  imageUrl!: string;
+  imageTitle: string = "Logo";
+
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
+    this.imageUrl = '../assets/img/logo.png';
     this.olympicService.getDatas();
   }
 }

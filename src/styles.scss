@@ -12,9 +12,30 @@ body {
     padding: 0;
     margin: 0px;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    .nav {
+        top: 0;
+        margin: 0;
+        background-color: white;
+        border-bottom: #04838F solid 3px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        padding: 0;
+        align-items: center;
+        min-height: 70px;
+        min-width: 100%;
+        ul, li {
+            list-style-type: none;
+            padding: 0;
+        }
+    }
+
 }
 
 main {
