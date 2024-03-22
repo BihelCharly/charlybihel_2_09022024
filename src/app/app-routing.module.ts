@@ -8,14 +8,17 @@ const routes: Routes = [
   {
     path: "",
     component: HomeComponent,
+    title: "OlympicGamesStarter - Dashboard page",
   },
   {
     path: "details",
     component: DetailsComponent,
+    title: "OlympicGamesStarter - Détails page",
   },
   {
     path: "**", // wildcard
     component: NotFoundComponent,
+    title: "404 - Not Found page",
   },
 ];
 

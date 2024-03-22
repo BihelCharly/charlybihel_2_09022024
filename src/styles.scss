@@ -16,23 +16,20 @@ body {
     align-items: center;
     flex-direction: column;
 
-    .nav {
-        top: 0;
-        margin: 0;
-        background-color: white;
-        border-bottom: #04838F solid 3px;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        justify-items: center;
-        padding: 0;
-        align-items: center;
-        min-height: 70px;
-        min-width: 100%;
-        ul, li {
-            list-style-type: none;
-            padding: 0;
+    button {
+        background: #04838F;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: 500;
+        &:hover {
+            background: #025057;
         }
     }
 
@@ -58,6 +55,6 @@ main {
         justify-content: flex-start;
         min-width: 100vw;
         min-height: auto;
-        max-height: 80vh;
+        max-height: auto;
     }
 }
