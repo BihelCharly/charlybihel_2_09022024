@@ -6,11 +6,13 @@
             <app-graph-card [cardTxt]="nbOfMedalsTxt" [cardValue]="nbOfMedalsValue"></app-graph-card>
             <app-graph-card [cardTxt]="nbOfAthletesTxt" [cardValue]="nbOfAthletesValue"></app-graph-card>
         </div>
-        <ngx-charts-line-chart [animations]="animations" [customColors]="customColors" [legend]="legend" [showXAxisLabel]="showXAxisLabel"
-            [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"  [results]="datasGraphLine"
-         [autoScale]="autoScale">
-        </ngx-charts-line-chart>
-        <button routerLink="/" title="Back to dashboard">Back</button>
     </div>
-
+    <div class="graph-line">
+        <ngx-charts-line-chart [animations]="animations" [customColors]="customColors" [legend]="legend"
+            [showXAxisLabel]="showXAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel"
+            [results]="datasGraphLine" [autoScale]="autoScale" [roundDomains]="roundDomains"
+            [wrapTicks]="wrapTicks">
+        </ngx-charts-line-chart>
+    </div>
+    <button routerLink="/" title="Back to dashboard">Back</button>
 </main>

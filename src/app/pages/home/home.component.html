@@ -6,7 +6,10 @@
         <app-graph-card [cardTxt]="nbOfJoTxt" [cardValue]="nbOfJoValue"></app-graph-card>
         <app-graph-card [cardTxt]="nbOfCountryTxt" [cardValue]="nbOfCountryValue"></app-graph-card>
     </div>
-    <ngx-charts-pie-chart [customColors]="customColors" [results]="datasGraphPie" [legend]="showLegend"
-        [labels]="showLabels" [animations]="animations" (select)="onPieClick($event.extra) ">
-    </ngx-charts-pie-chart>
+    <div class="graph-pie">
+        <ngx-charts-pie-chart [customColors]="customColors" [results]="datasGraphPie" [legend]="showLegend"
+            [labels]="showLabels" [animations]="animations" (select)="onPieClick($event.extra)" 
+           >
+        </ngx-charts-pie-chart>
+    </div>
 </main>

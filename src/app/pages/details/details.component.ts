@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, of, take, skip } from "rxjs";
+import { Observable } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
 import { ActivatedRoute } from "@angular/router";
 // Models
@@ -43,6 +43,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   xAxis: boolean = true;
   yAxis: boolean = true;
   showXAxisLabel: boolean = true;
+  roundDomains: boolean = true;
+  wrapTicks: boolean = true;
   xAxisLabel: string = "Dates";
 
   gridLines: boolean = true;

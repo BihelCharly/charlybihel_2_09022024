@@ -9,6 +9,7 @@
     padding: 0px 25px;
     font-size: 22px;
     margin: 20px 0;
+    min-width: 50%;
 
     p {
         margin: 10px 0;
@@ -19,5 +20,6 @@
 @media screen and (max-width: 800px) {
     .graph-title {
         min-width: 70%;
+        max-width: 70%;
     }
 }
