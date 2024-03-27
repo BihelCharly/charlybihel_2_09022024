@@ -8,7 +8,7 @@
 
 # OlympicGamesStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2, [Node](https://nodejs.org/en/) version 20.10.0, [npm](https://www.npmjs.com/package/npm) 10.5.0. and forked from *[Developpez-le-front-end-en-utilisant-Angular](https://github.com/OpenClassrooms-Student-Center/Developpez-le-front-end-en-utilisant-Angular)*.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2, [Node](https://nodejs.org/en/) version 20.10.0, [npm](https://www.npmjs.com/package/npm) 10.5.0. and cloned from *[Developpez-le-front-end-en-utilisant-Angular](https://github.com/OpenClassrooms-Student-Center/Developpez-le-front-end-en-utilisant-Angular)*.
 
 Don't forget to install [NodeJS](https://nodejs.org/fr) and your node_modules before starting with (`npm install`).
 
