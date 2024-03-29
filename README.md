@@ -7,17 +7,15 @@
 
 # OlympicGamesStarter
 
-![Telesport](src/assets/img/telesport.png)
-
 <p align="center" width="100%">
-    <img width="33%" src="src/assets/img/telesport.png" alt="Telesport" title="Telesport"'>
+    <img width="100%" src="src/assets/img/telesport.png" alt="Telesport" title="Telesport"'>
 </p>
 
-## Dashboard Page
+### Dashboard Page
 
 ![Dashboard Page](src/assets/img/dashboard.png)
 
-## Details Page
+### Details Page
 
 ![Details Page](src/assets/img/details.png)
 
