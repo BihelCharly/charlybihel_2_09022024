@@ -1,17 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
+import { OlympicService } from "./olympic.service";
 
-import { UserService} from './olympic.service';
-
-describe('OlympicService', () => {
-  let service: UserService;
+describe("OlympicService", () => {
+  let service: OlympicService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserService);
+    service = TestBed.inject(OlympicService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });
- 

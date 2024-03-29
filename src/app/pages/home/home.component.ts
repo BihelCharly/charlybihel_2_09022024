@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, of, skip, take } from "rxjs";
+import { Observable } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
 import { Router } from "@angular/router";
 // Models
@@ -69,7 +69,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       next: (datas: Olympic[]) => {
         if (datas && datas.length > 0 && datas[0].participations) {
           // card 1
-          this.nbOfJoValue = Math.max(...(datas.map(el => el.participations.length)));
+          this.nbOfJoValue = Math.max(
+            ...datas.map((el) => el.participations.length)
+          );
           // card 2
           this.nbOfCountryValue = datas.length;
           // Data sent to GraphPie

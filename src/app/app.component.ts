@@ -9,11 +9,12 @@ import { OlympicService } from "./core/services/olympic.service";
 export class AppComponent implements OnInit {
   imageUrl!: string;
   imageTitle: string = "Logo";
+  title: string = "OlympicGamesStarter";
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
-    this.imageUrl = '../assets/img/logo.png';
+    this.imageUrl = "../assets/img/logo.png";
     this.olympicService.getDatas();
   }
 }
