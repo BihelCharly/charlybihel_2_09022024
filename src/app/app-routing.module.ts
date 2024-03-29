@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: "details",
     component: DetailsComponent,
-    title: "OlympicGamesStarter - Détails page",
+    title: "OlympicGamesStarter - Details page",
   },
   {
     path: "**", // wildcard
