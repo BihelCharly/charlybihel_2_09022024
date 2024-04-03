@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
+import { Router } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 // Models
 import { Olympic } from "src/app/core/models/Olympic";
 import { GraphLine } from "src/app/core/models/GraphLine";
 import { Participation } from "src/app/core/models/Participation";
+
 
 @Component({
   selector: "app-details",
@@ -15,6 +17,7 @@ import { Participation } from "src/app/core/models/Participation";
 export class DetailsComponent implements OnInit, OnDestroy {
   // observeable
   olympics$: Observable<Olympic[]> = this.olympicService.olympic;
+  subscription!: Subscription;
   // url
   idUrl!: string;
 
@@ -81,7 +84,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private olympicService: OlympicService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -90,40 +94,44 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.idUrl = params["id"];
     });
     // Subscribe to get datas
-    this.olympics$.subscribe({
-      next: (datas: Olympic[]) => {
-        if (datas && datas.length > 0 && datas[0].participations) {
-          this.array = datas.filter((el: Olympic) => el.id === +this.idUrl);
-          this.graphTitle = this.array[0].country;
-          this.nbOfEntriesValue = this.array[0].participations.length;
-          this.nbOfMedalsValue = this.array[0].participations.reduce(
-            (prev: number, curr: any) => prev + curr.medalsCount,
-            0
-          );
-          this.nbOfAthletesValue = this.array[0].participations.reduce(
-            (prev: number, curr) => prev + curr.athleteCount,
-            0
-          );
-          this.datasGraphLine = this.array.map(({ country, participations }) =>
-            Object.create({
-              name: country,
-              series: participations.map((el: Participation) => {
-                return {
-                  name: el.year.toString(),
-                  value: el.medalsCount,
-                };
-              }),
-            })
-          );
-        }
-      },
-      error: (error: string) => {
-        console.error("An error occurred :", error);
-      },
-    });
+    this.subscription  = this.olympics$.subscribe({
+        error: (error: string) => {
+          console.error("An error occurred :", error);
+          this.router.navigateByUrl("/404");
+        },
+        next: (datas: Olympic[]) => {
+          if (datas.length == 0) {
+            this.router.navigateByUrl("/404");
+          } else if (datas && datas.length > 0 && datas[0].participations) {
+            this.array = datas.filter((el: Olympic) => el.id === +this.idUrl);
+            this.graphTitle = this.array[0].country;
+            this.nbOfEntriesValue = this.array[0].participations.length;
+            this.nbOfMedalsValue = this.array[0].participations.reduce(
+              (prev: number, curr: any) => prev + curr.medalsCount,
+              0
+            );
+            this.nbOfAthletesValue = this.array[0].participations.reduce(
+              (prev: number, curr) => prev + curr.athleteCount,
+              0
+            );
+            this.datasGraphLine = this.array.map(
+              ({ country, participations }) =>
+                Object.create({
+                  name: country,
+                  series: participations.map((el: Participation) => {
+                    return {
+                      name: el.year.toString(),
+                      value: el.medalsCount,
+                    };
+                  }),
+                })
+            );
+          }
+        },
+      })
   }
 
   ngOnDestroy(): void {
-    this.olympics$;
+    this.subscription.unsubscribe();
   }
 }

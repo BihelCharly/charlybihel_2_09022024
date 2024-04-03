@@ -5,8 +5,9 @@ import { NotFoundComponent } from "./pages/not-found/not-found.component";
 import { DetailsComponent } from "./pages/details/details.component";
 
 const routes: Routes = [
+  { path: "", redirectTo: "/dashboard", pathMatch: "full" },
   {
-    path: "",
+    path: "dashboard",
     component: HomeComponent,
     title: "OlympicGamesStarter - Dashboard page",
   },
@@ -17,6 +18,11 @@ const routes: Routes = [
   },
   {
     path: "**", // wildcard
+    component: NotFoundComponent,
+    title: "404 - Not Found page",
+  },
+  {
+    path: "404", // wildcard
     component: NotFoundComponent,
     title: "404 - Not Found page",
   },

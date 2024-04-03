@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { OlympicService } from "src/app/core/services/olympic.service";
 import { Router } from "@angular/router";
 // Models
@@ -13,9 +13,8 @@ import { GraphPie } from "src/app/core/models/GraphPie";
 })
 export class HomeComponent implements OnInit, OnDestroy {
   // observeable
-  //olympic$: Observable<Olympic[] > = this.olympicService.olympic;
   olympics$: Observable<Olympic[]> = this.olympicService.olympic;
-  // public olympics$: Observable<Olympic[]> = of([]);
+  subscription!: Subscription;
   // graph-title
   graphTitle: string = "Medals per Country";
 
@@ -65,7 +64,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Subscribe to get datas
-    this.olympics$.subscribe({
+    this.subscription = this.olympics$.subscribe({
+      error: (error: string) => {
+        console.error("An error occurred :", error);
+      },
       next: (datas: Olympic[]) => {
         if (datas && datas.length > 0 && datas[0].participations) {
           // card 1
@@ -86,18 +88,15 @@ export class HomeComponent implements OnInit, OnDestroy {
           );
         }
       },
-      error: (error: string) => {
-        console.error("An error occurred :", error);
-      },
     });
   }
 
   ngOnDestroy(): void {
-    this.olympics$;
+    this.subscription.unsubscribe();
   }
 
   // METHODS
-  onPieClick(event: MouseEvent) {
+  onPieClick(event: MouseEvent): void {
     this.router.navigate(["/details"], {
       queryParams: { id: event },
     });

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, map } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 // Models
 import { Olympic } from "../models/Olympic";
 
@@ -12,7 +13,7 @@ export class OlympicService {
   private olympicSubject = new BehaviorSubject<Olympic[]>([]);
   public olympic = this.olympicSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public getDatas() {
     this.http
@@ -20,6 +21,7 @@ export class OlympicService {
       .pipe(
         catchError(() => {
           this.olympicSubject.error("An error occurred");
+          this.router.navigateByUrl("/404");
           return [];
         }),
         map((datas) => {
